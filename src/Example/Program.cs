@@ -128,41 +128,16 @@ internal static class Program
 
         //execute a label
         Ahk.Label.Call("DOSTUFF");
-
-        //create a new function
-        // string sayHelloFunction = "SayHello(name) \r\n { \r\n MsgBox, Hello %name% \r\n return \r\n }";
-        // Ahk.Execute(sayHelloFunction);
-
-
+        
         //execute a function (in functions.ahk) that adds 5 and return results
-        var add5Results = Ahk.Evaluate("Add5( 5 )");
+        var add5Results = Ahk.Evaluate("Add5(5)");
         Console.WriteLine("Eval: Result of 5 with Add5 func is {0}", add5Results);
 
         //you can also return results with the ExecFunction
         add5Results = Ahk.Func.Call("Add5", "5");
         Console.WriteLine("ExecFunction: Result of 5 with Add5 func is {0}", add5Results);
 
-        //you can have AutoHotkey communicate with the hosting environment
-        // 1 - Create Handler for your ahk code
-        // 2 - Initalize Pipes Module, passing in your handler
-        // 3 - Use 'SendPipeMessage(string)' from your AHK code
-
-        /*
-        var pipeHandler = new PipeMessageHandler(incomingMessage => {
-            Console.WriteLine($"AHK Message: {incomingMessage}");
-
-            return "Funk yeah concrete";
-        });
-
-        Ahk.AddPipeHandler(pipeHandler);
-
-        success = Ahk.CreateBlock()
-            .Action("serverResponse := SendPipeMessage(\"Yeeeeeea boiiiiiiii\")\n")
-            .Action($"{AhkFmt.MsgBox($".NET Message: {AhkFmt.Expression("serverResponse")}")}")
-            .Execute(out code);
-
-        */
-        // Console.WriteLine(!success ? "Unable to execute script" : code);
+        // Make sure to call this if you're adding callbacks to hotkeys
         Ahk.RegisterCallbacks();
         
         Console.WriteLine("Press enter to exit...");
